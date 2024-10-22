@@ -1,0 +1,60 @@
+{
+  "name": "gitlab-to-github",
+  "version": "0.0.1",
+  "description": "plain JS CLI project for moving gitlab to github",
+  "main": "dist/index.js",
+  "author": "Enrique Mingorance <@Ginxo>",
+  "license": "ISC",
+  "private": false,
+  "bin": {
+    "build-chain": "./build/index.js"
+  },
+  "scripts": {
+    "build": "run-p build:*",
+    "build:cli": "ncc build -o build --minify src/bin/cli.ts",
+    "dev:build": "tsc && tsc-alias",
+    "test": "jest unitary/",
+    "pretest:e2e": "ncc build -o dist-e2e --minify src/bin/entry-point/github-action.ts",
+    "test:e2e": "jest e2e/",
+    "posttest:e2e": "rm -rf dist-e2e",
+    "test:report": "npm test -- --coverage --testResultsProcessor=jest-sonar-reporter",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "npm run lint -- --fix",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ginxo/gitlab-to-github.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/Ginxo/gitlab-to-github/issues"
+  },
+  "homepage": "https://github.com/Ginxo/gitlab-to-github#readme",
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/jest": "^28.1.1",
+    "@types/node": "^18.16.3",
+    "@typescript-eslint/eslint-plugin": "^5.27.1",
+    "@typescript-eslint/parser": "^5.27.1",
+    "@vercel/ncc": "^0.34.0",
+    "eslint": "^8.17.0",
+    "husky": "^8.0.1",
+    "jest": "^28.1.1",
+    "jest-sonar-reporter": "^2.0.0",
+    "nock": "^13.2.7",
+    "npm-run-all": "^4.1.5",
+    "ts-jest": "^28.0.4",
+    "ts-node": "^10.9.1",
+    "tsc-alias": "^1.8.2",
+    "typescript": "^4.7.3"
+  },
+  "dependencies": {
+    "@gitbeaker/rest": "^41.1.0",
+    "commander": "^9.3.0",
+    "ms-typescript": "^2.0.0"
+  },
+  "engines": {
+    "node": ">= 14.19.3"
+  }
+}
